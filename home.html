@@ -108,8 +108,6 @@
     }
   </style>
 </head>
-<script src="main.js"></script>
-
 <body>
     <div class="container">
     <div class="top-row">
@@ -131,6 +129,19 @@
 
     
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const username = localStorage.getItem('username');
+
+  if (!username) {
+    // إذا لم يتم إدخال اسم → الرجوع لصفحة الدخول
+    window.location.href = 'index.html';
+    return;
+  }
+
+  document.getElementById('welcome').innerText =
+    'مرحبًا ' + username + ' 👋 — هذه قائمة بالشركات المقاطعة حسب الفئة';
+});
+
     // بيانات المنتجات 
     const categories = [
       {
@@ -175,8 +186,8 @@
         ]
       }
     ];
-const username = localStorage.getItem('username') || 'زائر';
-    document.getElementById('welcome').innerText = `مرحبًا ${username} 👋 — هذه قائمة بالشركات المقاطعة حسب الفئة`;
+//const username = localStorage.getItem('username') || 'زائر';
+  //  document.getElementById('welcome').innerText = `مرحبًا ${username} 👋 — هذه قائمة بالشركات المقاطعة حسب الفئة`;
 
     const container = document.getElementById('categories');
 
@@ -235,6 +246,6 @@ const username = localStorage.getItem('username') || 'زائر';
     </footer>
 
   </div>
-
+<script src="main.js"></script>
 </body>
 </html>
