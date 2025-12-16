@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>تسجيل الدخول - حملة المقاطعة</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Tajawal", sans-serif;
+      background: linear-gradient(135deg, #eaf6ff, #d3f2e2);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #ffffffcc;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 320px;
+    }
+
+    .container img {
+      display: block;
+      margin: 0 auto 15px auto;
+      width: 120px;
+      height: auto;
+    }
+
+    h2 {
+      color: #0066cc;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .lead {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #00aa77;
+      box-shadow: 0 0 5px #00aa7799;
+    }
+
+    button {
+      background-color: #00aa77;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 95%;
+    }
+
+    button:hover {
+      background-color: #00895f;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<script src="main.js"></script>
+
+<body>
+  <div class="container">
+  <div class="logo">
+  <img src="image/logo.png" alt="شعار HumanMark">
+  
+</div>
+  <h2>حملة مقاطعة المنتجات الداعمة 🇵🇸</h2>
+    <p class="lead">أدخل اسمك للمتابعة</p>
+    <input type="text" id="username" placeholder="اسم المستخدم" />
+    <button id="loginBtn">تسجيل الدخول</button>
+  </div>
+
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', function () {
+      const name = document.getElementById('username').value.trim();
+      if (!name) {
+        alert('الرجاء إدخال الاسم أولاً');
+        return;
+      }
+      localStorage.setItem('username', name);
+      window.location.href = 'index.html';
+    });
+
+    // إذا كان المستخدم مسجل مسبقاً يمكن تحويله تلقائياً
+   // const existing = localStorage.getItem('username');
+   // if (existing) {
+      // window.location.href = 'home.html';
+   // }
+  </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+
+<title>Payment Page</title>
+
+<style>
+:root {
+  --bg-1: #f7faf9;
+  --bg-2: #ffffff;
+  --accent: #2a7a67;
+  --text: #153f3a;
+  --card-bg: #ffffff;
+  --shadow: 0 8px 24px rgba(20,40,30,0.08);
+  --radius: 14px;
+}
+
+/* BODY */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #eaf6ff, #d3f2e2);
+  color: var(--text);
+}
+
+/* MAIN BOX */
+.grid-box {
+  background: #fff;
+  width: 500px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+/* TITLE + LOGO */
+.title-with-logo {
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+  font-size: 27px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.logo-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0b6452;
+  padding: 3px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+/* INPUTS */
+.grid-box input {
+  width: 90%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+}
+
+/* BUTTONS */
+#calcBtn, #saveBtn, .secondary {
+  width: 90%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent); color: #fff; }
+#calcBtn:hover { background: #1e5748; }
+
+#saveBtn { background: #0077cc; color: #fff; }
+#saveBtn:hover { background: #005fa3; }
+
+.secondary { background: #4ca9ff; color: #fff; }
+.secondary:hover { background: #1d8be8; }
+
+/* TABLE */
+.styled-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.styled-table thead tr {
+  background-color: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.styled-table tbody td {
+  padding: 12px;
+  color: var(--text);
+}
+
+.styled-table tbody tr:nth-child(even) { background-color: #f5fcfa; }
+.styled-table tbody tr:hover { background-color: #e0f3ee; }
+
+/* DELETE BUTTON */
+.deleteBtn {
+  background:  #4ca9ff;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.deleteBtn:hover {
+  background: #d93434;
+}
+</style>
+</head>
+<script src="main.js"></script>
+
+<body>
+
+<div class="grid-box">
+
+  <!-- TITLE -->
+  <div class="title-with-logo">
+    <span>💰 حساب التوفير من المقاطعة</span>
+    <img src="image/logo.png" alt="شعار" class="logo-circle">
+  </div>
+
+  <!-- INPUTS -->
+  <input type="text" id="productName" placeholder="اسم المنتج">
+  <input type="number" id="count" placeholder="العدد">
+  <input type="number" id="price" placeholder="السعر لكل منتج">
+
+  <!-- BUTTONS -->
+  <button id="calcBtn">احسب التوفير</button>
+  <p id="result" style="font-weight:bold; font-size:1.2rem; text-align:center;"></p>
+  <button id="saveBtn">حفظ النتيجة</button>
+ 
+
+  <!-- TABLE -->
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>اسم المنتج</th>
+        <th>العدد</th>
+        <th>السعر</th>
+        <th>الإجمالي</th>
+        <th>التاريخ</th>
+        <th>حذف</th>
+      </tr>
+    </thead>
+    <tbody id="storeTable"></tbody>
+  </table>
+   <button class="secondary" onclick="window.location.href='index.html'">🏠 رجوع</button>
+</div>
+
+<script>
+const productNameEl = document.getElementById('productName');
+const countEl = document.getElementById('count');
+const priceEl = document.getElementById('price');
+const resultEl = document.getElementById('result');
+const saveBtn = document.getElementById('saveBtn');
+const calcBtn = document.getElementById('calcBtn');
+const storeTable = document.getElementById('storeTable');
+
+let storeData = JSON.parse(localStorage.getItem('storeData')) || [];
+
+// تحديث الجدول عند تحميل الصفحة
+renderTable();
+
+// حساب التوفير
+calcBtn.addEventListener('click', () => {
+  const name = productNameEl.value.trim();
+  const count = Number(countEl.value);
+  const price = Number(priceEl.value);
+
+  if (!name || count <= 0 || price <= 0) {
+    alert("الرجاء إدخال بيانات صحيحة");
+    return;
+  }
+
+  const total = count * price;
+  resultEl.innerText = `وفّرت من المقاطعة: ${total.toLocaleString()} دل 💸`;
+});
+
+// حفظ النتيجة
+saveBtn.addEventListener('click', () => {
+  const name = productNameEl.value.trim();
+  const count = Number(countEl.value);
+  const price = Number(priceEl.value);
+
+  if (!name || count <= 0 || price <= 0) {
+    alert("الرجاء إدخال بيانات صحيحة");
+    return;
+  }
+
+  const total = count * price;
+  const date = new Date().toLocaleDateString("ar-DZ"); // ⬅ تاريخ فقط
+
+  storeData.unshift({ name, count, price, total, date });
+
+  if(storeData.length > 10) storeData = storeData.slice(0,10);
+
+  localStorage.setItem('storeData', JSON.stringify(storeData));
+
+  renderTable();
+
+  productNameEl.value = '';
+  countEl.value = '';
+  priceEl.value = '';
+  resultEl.innerText = '';
+});
+
+
+// عرض البيانات في الجدول
+function renderTable() {
+  storeTable.innerHTML = '';
+
+  storeData.forEach(item => {
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>${item.count}</td>
+      <td>${item.price}</td>
+      <td>${item.total}</td>
+      <td>${item.date}</td>
+      <td><button class="deleteBtn">❌</button></td>
+    `;
+
+    // زر الحذف
+    row.querySelector('.deleteBtn').addEventListener('click', () => {
+      storeData = storeData.filter(x => x !== item);
+      localStorage.setItem('storeData', JSON.stringify(storeData));
+      renderTable();
+    });
+
+    storeTable.appendChild(row);
+  });
+  
+}
+</script>
+
+</body>
+</html>

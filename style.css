@@ -1,0 +1,464 @@
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+:root {
+  --bg-1: #f7faf9;
+  --bg-2: #ffffff;
+  --accent: #2a7a67;
+  --muted: #6b7a75;
+  --text: #153f3a;
+  --card-bg: #ffffff;
+  --shadow: 0 8px 24px rgba(20,40,30,0.08);
+  --radius: 14px;
+  --fadeIn: fadeIn .55s ease forwards;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   BODY (Merged & Cleaned)
+========================================================= */
+body {
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  font-family: "Cairo", sans-serif;
+
+  /* Layout */
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+
+  /* FINAL BACKGROUND (Editable) */
+  background: linear-gradient(135deg, #eaf6ff, #d3f2e2);
+  color: var(--text);
+
+  transition: .35s background, .35s color;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  animation: var(--fadeIn);
+}
+
+.logo img {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  padding: 6px;
+  background: var(--bg-2);
+  box-shadow: var(--shadow);
+  transition: .3s;
+}
+
+.logo span {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  transition: .3s;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+.container {
+  width: 100%;
+  max-width: 1250px;
+  padding: 26px;
+  animation: var(--fadeIn);
+}
+
+/* =========================================================
+   TOP ROW
+========================================================= */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.65);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  backdrop-filter: blur(6px);
+  animation: var(--fadeIn);
+}
+
+.top-row h2 {
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn, button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+.btn:hover, button:hover {
+  transform: translateY(-3px);
+}
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+#searchBox {
+  width: 100%;
+  max-width: 740px;
+  margin: 0 auto 28px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #dfeeea;
+  font-size: 1.05rem;
+  background: linear-gradient(180deg, #fff, #f5fffc);
+  box-shadow: 0 3px 8px rgba(10,20,18,0.03);
+  text-align: center;
+  transition: .25s;
+}
+
+#searchBox:focus {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(42,122,103,0.10);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CATEGORY SECTION
+========================================================= */
+.category-section {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-top: 32px;
+  animation: var(--fadeIn);
+}
+
+.category-title {
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-right: 12px;
+  border-right: 5px solid var(--accent);
+  font-weight: 700;
+}
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+.product-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: .35s;
+  overflow: hidden;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(4px);
+  animation: fadeIn .55s ease forwards;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 16px 36px rgba(20,40,30,0.12);
+}
+
+.img-wrap {
+  height: 130px;
+  background: #f4faf7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.img-wrap img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: .3s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 18px;
+}
+
+.card-body h3 {
+  font-size: 1.05rem;
+  color: #b43737;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.card-body p {
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+/* =========================================================
+   CENTER BOX
+========================================================= */
+.center-box-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.center-box {
+  background: var(--card-bg);
+  width: 450px;
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  animation: var(--fadeIn);
+  border: 1px solid #e6eeeb;
+}
+
+.center-box input,
+.center-box select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 2px solid #dfeeea;
+  font-size: 1rem;
+  background: #ffffff;
+  transition: .25s;
+}
+
+.center-box input:focus,
+.center-box select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(42,122,103,0.15);
+  outline: none;
+}
+
+.center-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  transition: .25s;
+}
+
+.center-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(42,122,103,0.15);
+}
+
+/* =========================================================
+   PAGE GRID / FORM BOXES
+========================================================= */
+.page-grid .grid-box,
+.grid-box {
+  background: #ffffff;
+  width: 450px;
+  padding: 25px 30px;
+  border-radius: 15px;
+  border: 1px solid #e3e3e3;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+}
+
+.grid-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.grid-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background-color: #2a7a67;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.grid-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(42,122,103,0.20);
+}
+
+button.secondary {
+  background: #888;
+}
+
+button.secondary:hover {
+  background: #666;
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+.history {
+  background: #f9f9f9;
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #e3e3e3;
+  text-align: right;
+  display: none; /* مخفي  */
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+  padding: 26px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media(max-width: 640px) {
+  .logo img { width: 70px; height: 70px; }
+  .logo span { font-size: 1.45rem; }
+  #searchBox { max-width: 100%; }
+}
+/* =========================================================
+العنوان + الشعار 
+=========================================================*/
+
+.title-with-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* النص يمين — الشعار يسار */
+  gap: 12px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/*=========================================================
+ الشعار الدائري ا 
+ ========================================================*/
+.logo-circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;        /* شكل دائرة */
+  object-fit: cover;         /* يمنع التشوه */
+  border: 3px solid #0b6452; /* إطار أنيق */
+  padding: 3px;              /* فراغ داخل الإطار */
+  background: #cbcec3;       /* خلفية بيضاء حول الصورة */
+  box-shadow: 0 0 10px rgba(0,0,0,0.25); /* ظل راقي */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*==================================
+حركة عند مرور الماوس علي الشعار في صفحة الحساب
+  =================================*/
+
+.logo-circle:hover {
+  transform: scale(1.15) rotate(-3deg);
+  box-shadow: 0 0 15px rgba(0,0,0,0.35);
+}
+#saveBtn {
+  background: #0077cc !important;    /* أزرق */
+  color: #fff;
+}
+
+#saveBtn:hover {
+  background: #005fa3 !important;    /* أزرق غامق عند المرور */
+}
+button.secondary {
+  background: #4ca9ff !important;     /* أزرق فاتح */
+  color: #fff;
+  border: none;
+}
+
+button.secondary:hover {
+  background: #1d8be8 !important;     /* أزرق أقوى */
+}
+/*=======================================
+/* الوضع الداكن */
+/* الوضع الليلي */
+/* الوضع الداكن */
+body.dark-mode {
+  background-color: #121212;  /* خلفية داكنة */
+  color: #e0e0e0;  /* نص فاتح */
+}
+
+/* خلفية للأقسام */
+body.dark-mode .container,
+body.dark-mode .category-section,
+body.dark-mode .grid-box {
+  background-color: #1e1e1e;  /* خلفية داكنة */
+  color: #f1f1f1;  /* نص أبيض */
+}
+
+/* خلفية للبطاقات (cards) */
+body.dark-mode .card {
+  background-color: #333;  /* خلفية داكنة أكثر للبطاقات */
+  color: #fff;  /* نص أبيض */
+}
